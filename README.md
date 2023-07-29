@@ -1,2 +1,2 @@
-# MoneyTalk-back-symfony
-symfony backend managing transactions in moneypots
+# MoneyTalk
+Secure money tracking app to enjoy capitalism, also works with friends. 
