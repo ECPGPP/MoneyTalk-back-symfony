@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MoneyPot{% endblock %}
+
+{% block body %}
+    <h1>MoneyPot</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ money_pot.id }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ money_pot.createdAt ? money_pot.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>IsShared</th>
+                <td>{{ money_pot.isShared ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('money_pot_index') }}">back to list</a>
+
+    <a href="{{ path('money_pot_edit', {'id': money_pot.id}) }}">edit</a>
+
+    {{ include('money_pot/_delete_form.html.twig') }}
+{% endblock %}

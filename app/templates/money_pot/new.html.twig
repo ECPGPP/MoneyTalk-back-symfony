@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New MoneyPot{% endblock %}
+
+{% block body %}
+    <h1>Create new MoneyPot</h1>
+
+    {{ include('money_pot/_form.html.twig') }}
+
+    <a href="{{ path('money_pot_index') }}">back to list</a>
+{% endblock %}

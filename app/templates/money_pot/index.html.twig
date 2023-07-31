@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MoneyPot index{% endblock %}
+
+{% block body %}
+    <h1>MoneyPot index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreatedAt</th>
+                <th>IsShared</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for money_pot in money_pots %}
+            <tr>
+                <td>{{ money_pot.id }}</td>
+                <td>{{ money_pot.createdAt ? money_pot.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ money_pot.isShared ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('money_pot_show', {'id': money_pot.id}) }}">show</a>
+                    <a href="{{ path('money_pot_edit', {'id': money_pot.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('money_pot_new') }}">Create new</a>
+{% endblock %}

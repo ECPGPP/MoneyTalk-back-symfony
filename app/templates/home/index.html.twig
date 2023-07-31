@@ -9,9 +9,17 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>MoneyTalk ✅</h1>
 
-    <a href="{{ path('register') }}">REGISTER</a>
 
+    {% if app.user %}
+        <a href="{{ path('app_logout') }}">LOGOUT</a>
+        <h1>WELCOME {{ app.user.uniqName}} ! </h1>
+        <a href="{{ path('money_pot_index') }}"> Your MoneyPots ! </a>
+        {% dump(app.user) %}
+    {% else %}
+        <a href="{{ path('register') }}">REGISTER</a>
+        <a href="{{ path('app_login') }}">LOGIN</a>
+    {% endif %}
 </div>
 {% endblock %}

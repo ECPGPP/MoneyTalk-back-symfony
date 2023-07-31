@@ -32,8 +32,8 @@ class RegistrationController extends AbstractController
                 )
             );
             $user->setUniqName($form->get('uniqName')->getData());
-            dump($user);
-
+            $roles[] = 'ROLE_USER';
+            $user->setRoles($roles);
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
