@@ -16,6 +16,7 @@ class TransactionType extends AbstractType
             ->add('amount')
             ->add('createdAt')
             ->add('editedAt')
+            ->add('moneyPots')
         ;
     }
 

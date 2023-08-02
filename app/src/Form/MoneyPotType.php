@@ -14,7 +14,7 @@ class MoneyPotType extends AbstractType
         $builder
             ->add('createdAt')
             ->add('isShared')
-            ->add('owner')
+            ->add('transactions')
         ;
     }
 

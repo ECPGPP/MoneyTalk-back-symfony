@@ -9,13 +9,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[isGranted('ROLE_USER')]
-#[Route('/money_pot', name:'money_pot')]
+#[Route('/money_pot', name: 'money_pot')]
 class MoneyPotController extends AbstractController
 {
-    #[Route('/', name: '_index', methods: ['GET'])]
+    #[Route('/all', name: '_index', methods: ['GET'])]
     public function index(MoneyPotRepository $moneyPotRepository): Response
     {
         return $this->render('money_pot/index.html.twig', [
@@ -42,7 +40,7 @@ class MoneyPotController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_money_pot_show', methods: ['GET'])]
+    #[Route('/{id}', name: '_show', methods: ['GET'])]
     public function show(MoneyPot $moneyPot): Response
     {
         return $this->render('money_pot/show.html.twig', [
@@ -50,7 +48,7 @@ class MoneyPotController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_money_pot_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: '_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, MoneyPot $moneyPot, MoneyPotRepository $moneyPotRepository): Response
     {
         $form = $this->createForm(MoneyPotType::class, $moneyPot);
@@ -59,7 +57,7 @@ class MoneyPotController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $moneyPotRepository->save($moneyPot, true);
 
-            return $this->redirectToRoute('app_money_pot_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('money_pot_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('money_pot/edit.html.twig', [
@@ -68,13 +66,13 @@ class MoneyPotController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_money_pot_delete', methods: ['POST'])]
+    #[Route('/{id}', name: '_delete', methods: ['POST'])]
     public function delete(Request $request, MoneyPot $moneyPot, MoneyPotRepository $moneyPotRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$moneyPot->getId(), $request->request->get('_token'))) {
             $moneyPotRepository->remove($moneyPot, true);
         }
 
-        return $this->redirectToRoute('app_money_pot_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('money_pot_index', [], Response::HTTP_SEE_OTHER);
     }
 }

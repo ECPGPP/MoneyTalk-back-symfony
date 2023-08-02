@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TransactionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TransactionRepository::class)]
@@ -13,7 +15,7 @@ class Transaction
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $label = null;
 
     #[ORM\Column]
@@ -25,6 +27,14 @@ class Transaction
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $editedAt = null;
 
+    #[ORM\ManyToMany(targetEntity: MoneyPot::class, mappedBy: 'transactions')]
+    private Collection $moneyPots;
+
+    public function __construct()
+    {
+        $this->moneyPots = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,7 +45,7 @@ class Transaction
         return $this->label;
     }
 
-    public function setLabel(string $label): static
+    public function setLabel(?string $label): static
     {
         $this->label = $label;
 
@@ -74,6 +84,33 @@ class Transaction
     public function setEditedAt(?\DateTimeImmutable $editedAt): static
     {
         $this->editedAt = $editedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MoneyPot>
+     */
+    public function getMoneyPots(): Collection
+    {
+        return $this->moneyPots;
+    }
+
+    public function addMoneyPot(MoneyPot $moneyPot): static
+    {
+        if (!$this->moneyPots->contains($moneyPot)) {
+            $this->moneyPots->add($moneyPot);
+            $moneyPot->addTransaction($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMoneyPot(MoneyPot $moneyPot): static
+    {
+        if ($this->moneyPots->removeElement($moneyPot)) {
+            $moneyPot->removeTransaction($this);
+        }
 
         return $this;
     }
