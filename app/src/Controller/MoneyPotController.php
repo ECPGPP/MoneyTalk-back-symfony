@@ -34,7 +34,7 @@ class MoneyPotController extends AbstractController
             return $this->redirectToRoute('money_pot_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('money_pot/new.html.twig', [
+        return $this->render('money_pot/new.html.twig', [
             'money_pot' => $moneyPot,
             'form' => $form,
         ]);

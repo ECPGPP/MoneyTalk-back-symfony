@@ -35,6 +35,20 @@ class Transaction
         $this->moneyPots = new ArrayCollection();
     }
 
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return "
+        ".strval($this->id)." - 
+        ".strval($this->label)." - 
+        ".strval($this->amount)." - 
+        ".strval($this->createdAt->getTimestamp())."
+        ";
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;

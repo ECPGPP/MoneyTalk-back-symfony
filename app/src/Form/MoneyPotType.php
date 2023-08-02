@@ -14,7 +14,8 @@ class MoneyPotType extends AbstractType
         $builder
             ->add('createdAt')
             ->add('isShared')
-            ->add('transactions')
+//  wil be managed by controller, regarding MP of origin
+//            ->add('transactions')
         ;
     }
 

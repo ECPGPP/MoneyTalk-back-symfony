@@ -34,7 +34,7 @@ class TransactionController extends AbstractController
             return $this->redirectToRoute('transaction_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('transaction/new.html.twig', [
+        return $this->render('transaction/new.html.twig', [
             'transaction' => $transaction,
             'form' => $form,
         ]);
@@ -60,7 +60,7 @@ class TransactionController extends AbstractController
             return $this->redirectToRoute('transaction_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('transaction/edit.html.twig', [
+        return $this->render('transaction/edit.html.twig', [
             'transaction' => $transaction,
             'form' => $form,
         ]);

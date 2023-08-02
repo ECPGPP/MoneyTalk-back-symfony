@@ -29,6 +29,14 @@ class MoneyPot
         $this->transactions = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return "
+        ".strval($this->id)." - 
+        ".strval($this->createdAt->getTimestamp())." - 
+        ";
+    }
+
     public function getId(): ?int
     {
         return $this->id;
