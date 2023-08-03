@@ -50,7 +50,7 @@ class TransactionController extends AbstractController
             //dd($transaction);
             $em->flush();
 
-/**
+
             dump($moneypot);
             $transaction->addMoneyPot($moneypot);
             dump($moneypot);
@@ -60,7 +60,7 @@ class TransactionController extends AbstractController
                 dump('non');
             }
             $transactionRepository->save($transaction, true);
-**/
+
             return $this->redirectToRoute('transaction_index', [], Response::HTTP_SEE_OTHER);
         }
 

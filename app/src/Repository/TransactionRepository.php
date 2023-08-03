@@ -67,7 +67,7 @@ class TransactionRepository extends ServiceEntityRepository
     public function findByMoneyPotId($moneyPotId)
     {
 
-        //TODO 
+        //TODO
         /**
         SELECT * FROM transaction JOIN money_pot_transaction mpt on transaction.id = mpt.transaction_id;
 
