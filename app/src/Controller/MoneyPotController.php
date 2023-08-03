@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\MoneyPot;
 use App\Form\MoneyPotType;
 use App\Repository\MoneyPotRepository;
+use App\Repository\TransactionRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,10 +43,20 @@ class MoneyPotController extends AbstractController
     }
 
     #[Route('/{id}', name: '_show', methods: ['GET'])]
-    public function show(MoneyPot $moneyPot): Response
+    public function show(
+        //MoneyPot $moneyPot,
+        MoneyPotRepository $moneyPotRepository,
+        TransactionRepository $transactionRepository,
+        EntityManagerInterface $entityManager,
+        int $id
+    ): Response
     {
+        $moneyPot = $moneyPotRepository->findOneBy(['id'=> $id]);
+        $transactions[] = $transactionRepository->findByMoneyPotId($moneyPot->getId());
+    dd($transactions);
         return $this->render('money_pot/show.html.twig', [
             'money_pot' => $moneyPot,
+            'transactions' => $transactions
         ]);
     }
 

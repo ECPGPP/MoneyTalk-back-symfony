@@ -17,7 +17,7 @@ class TransactionType extends AbstractType
             ->add('createdAt')
             ->add('editedAt')
 //  wil be managed by controller, regarding MP of origin
-//            ->add('moneyPots')
+            ->add('moneyPots')
         ;
     }
 

@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MoneyPotRepository::class)]
-#[ApiResource]
+#[ApiResource()]
 class MoneyPot
 {
     #[ORM\Id]
@@ -33,10 +33,13 @@ class MoneyPot
 
     public function __toString(): string
     {
-        return "
-        ".strval($this->id)." - 
-        ".strval($this->createdAt->getTimestamp())." - 
-        ";
+        $data = [
+            'id'=> $this->id,
+            'createdAt'=>$this->createdAt,
+            'isShared'=>$this->isShared,
+        ];
+
+        return strval(json_encode($data));
     }
 
     public function getId(): ?int

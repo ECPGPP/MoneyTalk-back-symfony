@@ -4,6 +4,7 @@
 
 {% block body %}
     <h1>Transaction</h1>
+    {% dump(transaction) %}
 
     <table class="table">
         <tbody>
@@ -36,3 +37,4 @@
 
     {{ include('transaction/_delete_form.html.twig') }}
 {% endblock %}
+

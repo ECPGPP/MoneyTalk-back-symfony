@@ -1,0 +1,8 @@
+api_platform:
+  title: 'MoneyTalkApi'
+  mapping:
+    paths: ['%kernel.project_dir%/src/Entity']
+#    paths: ['%kernel.project_dir%/src/entity', '%kernel.project_dir%/config/packages/api_platform/']
+    # The list of your resources class directories. Defaults to the directories of the mapping paths but might differ.
+#    resource_class_directories:
+#      - '%kernel.project_dir%/src/Entity'

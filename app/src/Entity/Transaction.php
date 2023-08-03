@@ -121,10 +121,16 @@ class Transaction
 
     public function addMoneyPot(MoneyPot $moneyPot): static
     {
-        if (!$this->moneyPots->contains($moneyPot)) {
+        echo "function addMoneyPot";
+        dump($moneyPot);
+
+//        if (!$this->moneyPots->contains($moneyPot)) {
+
+            echo "I PASS ZE IF";
+
             $this->moneyPots->add($moneyPot);
             $moneyPot->addTransaction($this);
-        }
+//        }
 
         return $this;
     }

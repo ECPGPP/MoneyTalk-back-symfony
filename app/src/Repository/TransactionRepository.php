@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\MoneyPot;
 use App\Entity\Transaction;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -63,4 +64,22 @@ class TransactionRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findByMoneyPotId($moneyPotId)
+    {
+
+        //TODO 
+        /**
+        SELECT * FROM transaction JOIN money_pot_transaction mpt on transaction.id = mpt.transaction_id;
+
+        $entityManager = $this->getEntityManager();
+
+        return $this->createQuery(
+            'SELECT '
+        );
+
+         **/
+
+        return $this->createQueryBuilder();
+
+    }
 }
