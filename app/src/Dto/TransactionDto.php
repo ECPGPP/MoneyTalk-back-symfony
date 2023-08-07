@@ -13,7 +13,11 @@ final class TransactionDto
     public string $label;
     public float $amount;
     public \DateTimeImmutable $createdAt;
-    public \DateTimeImmutable $editedAt;
+    public ?\DateTimeImmutable $editedAt;
+
+    public string $author;
+    public ?string $recipient;
+    public ?string $sender;
 
 
 }
