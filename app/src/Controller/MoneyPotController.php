@@ -53,7 +53,6 @@ class MoneyPotController extends AbstractController
     {
         $moneyPot = $moneyPotRepository->findOneBy(['id'=> $id]);
         $transactions[] = $transactionRepository->findByMoneyPotId($moneyPot->getId());
-    dd($transactions);
         return $this->render('money_pot/show.html.twig', [
             'money_pot' => $moneyPot,
             'transactions' => $transactions
@@ -87,4 +86,6 @@ class MoneyPotController extends AbstractController
 
         return $this->redirectToRoute('money_pot_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 }

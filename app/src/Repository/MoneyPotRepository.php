@@ -39,6 +39,17 @@ class MoneyPotRepository extends ServiceEntityRepository
         }
     }
 
+    public function getSimpleMPbyId(int $id): array{
+        $moneyPot = $this->find($id);
+        if(!isset($moneyPot)){
+            return [];
+        }
+        return [
+            'id' => $moneyPot->getId(),
+            'createdAt' => $moneyPot->getCreatedAt()
+        ];
+    }
+
 //    /**
 //     * @return MoneyPot[] Returns an array of MoneyPot objects
 //     */

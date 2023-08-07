@@ -2,13 +2,11 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
 use App\Repository\HolderRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\IsNull;
 
 #[ORM\Entity(repositoryClass: HolderRepository::class)]
-#[ApiResource]
 class Holder
 {
     #[ORM\Id]

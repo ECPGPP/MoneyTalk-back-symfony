@@ -3,13 +3,32 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use App\Dto\MoneyPotDto;
 use App\Repository\MoneyPotRepository;
+use App\State\MoneyPotProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource(
+    operations: [
+        new Get(
+            uriTemplate: '/money_pot/{id}',
+            uriVariables: ['id'=> 'id'],
+            description: MoneyPotDto::DESCRIPTION,
+            output: MoneyPotDto::class,
+            provider: MoneyPotProvider::class,
+
+        ),
+        new GetCollection(
+            uriTemplate: '/money_pots'
+        )
+    ]
+)]
+
 #[ORM\Entity(repositoryClass: MoneyPotRepository::class)]
-#[ApiResource()]
 class MoneyPot
 {
     #[ORM\Id]
@@ -30,7 +49,6 @@ class MoneyPot
     {
         $this->transactions = new ArrayCollection();
     }
-
     public function __toString(): string
     {
         $data = [
@@ -41,6 +59,11 @@ class MoneyPot
 
         return strval(json_encode($data));
     }
+
+    public function getHello(){
+        return "OLA!";
+    }
+
 
     public function getId(): ?int
     {
