@@ -16,11 +16,11 @@ use Doctrine\ORM\Mapping as ORM;
     operations: [
         new Get(
             uriTemplate: '/money_pot/{id}',
+            formats: ['json'=>['application/json']],
             uriVariables: ['id'=> 'id'],
             description: MoneyPotDto::DESCRIPTION,
             output: MoneyPotDto::class,
-            provider: MoneyPotProvider::class,
-
+            provider: MoneyPotProvider::class
         ),
         new GetCollection(
             uriTemplate: '/money_pots'

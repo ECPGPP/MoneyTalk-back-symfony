@@ -18,4 +18,9 @@ class ApiSecurityController extends AbstractController
         ]);
 
     }
+
+    #[Route('/auth', name: 'auth', methods: ['POST'])]
+    public function auth($request){
+        dd($request);
+    }
 }
