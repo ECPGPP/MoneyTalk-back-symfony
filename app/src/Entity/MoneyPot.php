@@ -45,6 +45,9 @@ class MoneyPot
     #[ORM\ManyToMany(targetEntity: Transaction::class, inversedBy: 'moneyPots')]
     private Collection $transactions;
 
+    #[ORM\OneToOne(inversedBy: 'moneyPot', cascade: ['persist', 'remove'])]
+    private ?User $owner = null;
+
     public function __construct()
     {
         $this->transactions = new ArrayCollection();
@@ -114,6 +117,18 @@ class MoneyPot
     public function removeTransaction(Transaction $transaction): static
     {
         $this->transactions->removeElement($transaction);
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): static
+    {
+        $this->owner = $owner;
 
         return $this;
     }

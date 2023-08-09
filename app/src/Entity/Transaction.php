@@ -31,6 +31,16 @@ class Transaction
     #[ORM\ManyToMany(targetEntity: MoneyPot::class, mappedBy: 'transactions')]
     private Collection $moneyPots;
 
+    #[ORM\ManyToOne(inversedBy: 'transactionsAsAuthor')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $author = null;
+
+    #[ORM\ManyToOne(inversedBy: 'transactionsAsSender')]
+    private ?User $sender = null;
+
+    #[ORM\ManyToOne(inversedBy: 'transactionsAsRecipient')]
+    private ?User $recipient = null;
+
     public function __construct()
     {
         $this->moneyPots = new ArrayCollection();
@@ -132,6 +142,42 @@ class Transaction
         if ($this->moneyPots->removeElement($moneyPot)) {
             $moneyPot->removeTransaction($this);
         }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getSender(): ?User
+    {
+        return $this->sender;
+    }
+
+    public function setSender(?User $sender): static
+    {
+        $this->sender = $sender;
+
+        return $this;
+    }
+
+    public function getRecipient(): ?User
+    {
+        return $this->recipient;
+    }
+
+    public function setRecipient(?User $recipient): static
+    {
+        $this->recipient = $recipient;
 
         return $this;
     }

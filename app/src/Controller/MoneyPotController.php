@@ -47,12 +47,12 @@ class MoneyPotController extends AbstractController
         //MoneyPot $moneyPot,
         MoneyPotRepository $moneyPotRepository,
         TransactionRepository $transactionRepository,
-        EntityManagerInterface $entityManager,
         int $id
     ): Response
     {
         $moneyPot = $moneyPotRepository->findOneBy(['id'=> $id]);
-        $transactions[] = $transactionRepository->findByMoneyPotId($moneyPot->getId());
+//        $transactions[] = $transactionRepository->findByMoneyPotId($moneyPot->getId());
+        $transactions = $moneyPotRepository->findTransactionsByMoneyPotId($id);
         return $this->render('money_pot/show.html.twig', [
             'money_pot' => $moneyPot,
             'transactions' => $transactions

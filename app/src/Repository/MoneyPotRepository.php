@@ -50,9 +50,33 @@ class MoneyPotRepository extends ServiceEntityRepository
         ];
     }
 
-//    /**
-//     * @return MoneyPot[] Returns an array of MoneyPot objects
-//     */
+// TODO retourner les transactions d'un moneypot avec ce PUTAIN de querybuilder
+
+/**TERRIBLE WIP
+    public function findTransactionsByMoneyPotId(int $id){
+        return $this->createQueryBuilder('m')
+            ->join('m.id', 'id')
+            ->addSelect('id')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+//        return $this->createQueryBuilder('m')
+//            ->andWhere('m.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->orderBy('m.id', 'ASC')
+//            ->setMaxResults(10)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+$query = 'select * from MyBundle\Entity\Alpha alpha where alpha.id = :something';
+return $this->getEntityManager()
+->createQuery($query)
+->setParameter('something', $something)
+->getResult();
+
+//      @return MoneyPot[] Returns an array of MoneyPot objects
+//
 //    public function findByExampleField($value): array
 //    {
 //        return $this->createQueryBuilder('m')
@@ -74,4 +98,7 @@ class MoneyPotRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+TERRIBLE WIP **/
+
 }

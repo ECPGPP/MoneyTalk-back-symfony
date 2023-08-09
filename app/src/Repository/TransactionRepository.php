@@ -64,11 +64,13 @@ class TransactionRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+/**
     public function findByMoneyPotId($moneyPotId)
     {
 
         //TODO
-        /**
+
         SELECT * FROM transaction JOIN money_pot_transaction mpt on transaction.id = mpt.transaction_id;
 
         $entityManager = $this->getEntityManager();
@@ -77,9 +79,9 @@ class TransactionRepository extends ServiceEntityRepository
             'SELECT '
         );
 
-         **/
 
         return $this->createQueryBuilder();
 
     }
+**/
 }
