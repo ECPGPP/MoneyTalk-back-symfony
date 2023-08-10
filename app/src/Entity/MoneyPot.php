@@ -20,7 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
             uriVariables: ['id'=> 'id'],
             description: MoneyPotDto::DESCRIPTION,
             output: MoneyPotDto::class,
-            provider: MoneyPotProvider::class
+            provider: MoneyPotProvider::class,
         ),
         new GetCollection(
             uriTemplate: '/money_pots'

@@ -6,21 +6,30 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/api', name: 'api')]
 class ApiSecurityController extends AbstractController
 {
-    #[Route('/api/login', name: 'api_login', methods: ['POST'])]
+    #[Route('/login', name: '_login', methods: ['POST'])]
     public function login()
     {
         $user = $this->getUser();
         return $this->json([
-            'username' => $user->getUserIdentifier(),
+            'email' => $user->getUserIdentifier(),
             'roles' => $user->getRoles()
         ]);
 
     }
+    #[Route('/register', name:'_register', methods:['POST'])]
+    public function register(){
 
-    #[Route('/auth', name: 'auth', methods: ['POST'])]
-    public function auth($request){
-        dd($request);
     }
+
+    /** no need with JWT
+
+    #[Route('/logout', name: '_logout', methods: ['POST'])]
+    public function logout(){
+
+    }
+*/
+
 }
