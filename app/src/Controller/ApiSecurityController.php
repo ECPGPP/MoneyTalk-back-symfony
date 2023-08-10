@@ -19,6 +19,7 @@ class ApiSecurityController extends AbstractController
         ]);
 
     }
+
     #[Route('/register', name:'_register', methods:['POST'])]
     public function register(){
 
