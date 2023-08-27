@@ -11,6 +11,7 @@ use App\State\MoneyPotProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
     operations: [
@@ -23,9 +24,12 @@ use Doctrine\ORM\Mapping as ORM;
             provider: MoneyPotProvider::class,
         ),
         new GetCollection(
-            uriTemplate: '/money_pots'
+            uriTemplate: '/money_pots',
+            formats: ['json'=>['application/json']],
         )
-    ]
+    ],
+    normalizationContext: ['groups'=>['id', 'date']]
+    //TO DO BETTER AND NOT ON MP BUT TRANSACTIONS
 )]
 
 #[ORM\Entity(repositoryClass: MoneyPotRepository::class)]
@@ -34,9 +38,11 @@ class MoneyPot
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('id')]
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups('date')]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]

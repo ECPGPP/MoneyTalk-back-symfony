@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\MoneyPot;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\MoneyPotRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,9 +51,11 @@ class RegistrationController extends AbstractController
         UserPasswordHasherInterface $passwordHasher,
         EntityManagerInterface $entityManager,
         UserRepository $userRepository,
+        MoneyPotRepository $moneyPotRepository
     ): Response
     {
         $data = json_decode($request->getContent(), true);
+        //config new user
         $user = new User;
         $plaintextPassword = $data['password'];
         $hashedPassword = $passwordHasher->hashPassword(
@@ -61,13 +65,22 @@ class RegistrationController extends AbstractController
         $user->setPassword($hashedPassword);
         $user->setEmail($data['username']);
         $user->setRoles(["ROLE_USER"]);
-
+        //save new user
         $userRepository->save($user, true);
-        //$entityManager->persist($user);
-        //$entityManager->flush();
-//        return $this->redirectToRoute('/api/login_check');
-//        return $data['username'];
 
-        return new JsonResponse(['username' => $data['username']]);
+        //config his new moneyPot
+        $moneyPot = new MoneyPot();
+        $moneyPot->setOwner($user);
+        $nowDatetime = new \DateTimeImmutable(date("Y-m-d H:i:s"));
+        $moneyPot->setCreatedAt($nowDatetime);
+        $moneyPot->setIsShared(false);
+        //save his moneyPot
+        $moneyPotRepository->save($moneyPot, true);
+
+        return new JsonResponse([
+            'username' => $data['username'],
+            'message' => "Account created succesfully !",
+            'moneypot' => $moneyPot->getId()
+        ]);
         }
 }

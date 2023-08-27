@@ -47,11 +47,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'recipient', targetEntity: Transaction::class)]
     private Collection $transactionsAsRecipient;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Token::class, orphanRemoval: true)]
+    private Collection $tokens;
+
     public function __construct()
     {
         $this->transactionsAsAuthor = new ArrayCollection();
         $this->transactionsAsSender = new ArrayCollection();
         $this->transactionsAsRecipient = new ArrayCollection();
+        $this->tokens = new ArrayCollection();
     }
 
     /**
@@ -249,6 +253,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($transactionsAsRecipient->getRecipient() === $this) {
                 $transactionsAsRecipient->setRecipient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Token>
+     */
+    public function getTokens(): Collection
+    {
+        return $this->tokens;
+    }
+
+    public function addToken(Token $token): static
+    {
+        if (!$this->tokens->contains($token)) {
+            $this->tokens->add($token);
+            $token->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeToken(Token $token): static
+    {
+        if ($this->tokens->removeElement($token)) {
+            // set the owning side to null (unless already changed)
+            if ($token->getUser() === $this) {
+                $token->setUser(null);
             }
         }
 
