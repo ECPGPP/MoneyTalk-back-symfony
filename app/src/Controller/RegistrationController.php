@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RegistrationController extends AbstractController
 {
+/**
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
@@ -44,7 +45,7 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
-
+**/
     #[Route('/api/register', name: 'api_register', methods: ['POST'])]
     public function apiRegister(
         Request $request,
@@ -79,8 +80,9 @@ class RegistrationController extends AbstractController
 
         return new JsonResponse([
             'username' => $data['username'],
-            'message' => "Account created succesfully !",
-            'moneypot' => $moneyPot->getId()
+            'message' => "from symfony_core : Account created succesfully !",
+            'roles' => $user->getRoles(),
+            'moneyPotId' => $moneyPot->getId()
         ]);
         }
 }

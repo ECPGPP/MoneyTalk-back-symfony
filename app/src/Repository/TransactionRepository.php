@@ -40,6 +40,28 @@ class TransactionRepository extends ServiceEntityRepository
         }
     }
 
+    public function test($id){
+        return $this->createQueryBuilder('t')
+            ->join('t.moneyPots', 'm')
+            ->andWhere('m.id = :val')
+            ->setParameter('val', $id)
+            ->addSelect()
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getTransactionsByMPId($id){
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+          'SELECT t.id, t.label, t.amount, t.createdAt
+          FROM App\Entity\Transaction t
+          INNER JOIN t.moneyPots m
+          WHERE m.id = :id'
+        )->setParameter('id', $id);
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Transaction[] Returns an array of Transaction objects
 //     */

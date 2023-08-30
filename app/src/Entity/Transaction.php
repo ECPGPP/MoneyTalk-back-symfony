@@ -3,29 +3,56 @@
 namespace App\Entity;
 
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use App\Dto\TransactionDto;
 use App\Repository\TransactionRepository;
+use App\State\TransactionProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    operations:[
+        new Get(
+            uriTemplate: '/money_pot/{mpid}/transaction/{tid}',
+            formats:['json'=>['application/json']],
+            description: TransactionDto::DESCRIPTION,
+            output: TransactionDto::class,
+            provider: TransactionProvider::class,
+        ),
+        new GetCollection(
+            uriTemplate: '/money_pot/{mpid}/transactions',
+            formats: ['json'=>['application/json']]
+        )
+    ],
+    normalizationContext: ['groups'=>['id', 'label', 'amount', 'createdAt', 'editedAt']]
+)]
 #[ORM\Entity(repositoryClass: TransactionRepository::class)]
 class Transaction
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('id')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('label')]
     private ?string $label = null;
 
     #[ORM\Column]
+    #[Groups('amount')]
     private ?float $amount = null;
 
     #[ORM\Column]
+    #[Groups('createdAt')]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups('editedAt')]
     private ?\DateTimeImmutable $editedAt = null;
 
     #[ORM\ManyToMany(targetEntity: MoneyPot::class, mappedBy: 'transactions')]

@@ -8,10 +8,16 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/api', name: 'api')]
 class ApiSecurityController extends AbstractController
 {
-    #[Route('/login', name: '_login', methods: ['GET'])]
-    public function index(){
-        return $this->json('oui');
+    #[Route('/user', name: '_user', methods: ['GET'])]
+    public function user(){
+        $user = $this->getUser();
+        $message = "user successfully retrieved !";
+        return $this->json([
+            'user'=>$user,
+            'message'=>$message
+        ]);
     }
+
     #[Route('/login', name: '_login', methods: ['POST'])]
     public function login()
     {

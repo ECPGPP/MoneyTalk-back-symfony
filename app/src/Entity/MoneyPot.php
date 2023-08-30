@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Dto\MoneyPotDto;
 use App\Repository\MoneyPotRepository;
+use App\Repository\TransactionRepository;
 use App\State\MoneyPotProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -57,6 +58,7 @@ class MoneyPot
     public function __construct()
     {
         $this->transactions = new ArrayCollection();
+
     }
     public function __toString(): string
     {
@@ -106,9 +108,10 @@ class MoneyPot
     /**
      * @return Collection<int, Transaction>
      */
-    public function getTransactions(): Collection
+    public function getTransactions(): ?Collection
     {
         return $this->transactions;
+
     }
 
     public function addTransaction(Transaction $transaction): static
